@@ -20,4 +20,18 @@ model User {
   email     String   @unique
   firstName String
   lastName  String?
+
+  Note Note[]
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String
+  userId    String
+  aiSummary String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -27,7 +27,10 @@ export interface IResponseSingle<T = Record<string, unknown>, U = unknown> {
   status: boolean;
   content: {
     data: T;
-    meta?: U;
+    meta?: {
+      page: number;
+      total: number
+    };
   };
 };
 

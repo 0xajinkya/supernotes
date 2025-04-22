@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import SessionSlice from './slices/session';
+import NoteSlice from './slices/notes';
 
 export const store = configureStore({
   reducer: {
-    session: SessionSlice
+    session: SessionSlice,
+    notes: NoteSlice
   },
 });
 

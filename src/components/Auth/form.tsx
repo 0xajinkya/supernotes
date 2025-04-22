@@ -16,9 +16,19 @@ export const LoginForm = () => {
 
     const {
         mutate,
-        data: loginDetails
     } = useMutation({
-        mutationFn: ({ data, config }: ILoginArgs) => logIn(data, config)
+        mutationFn: ({ data, config }: ILoginArgs) => logIn(data, config),
+        onSuccess: (loginDetails) => {
+            if (!loginDetails.content.data) {
+                successToast({
+                    title: "Confirmation link has been sent to your mail."
+                });
+            } else {
+                successToast({
+                    title: "You are logged in."
+                });
+            }
+        }
     })
 
     const formSchema = z.object({
@@ -42,21 +52,6 @@ export const LoginForm = () => {
             }
         });
     };
-
-    useEffect(() => {
-        if (loginDetails) {
-            if (!loginDetails.content.data) {
-                successToast({
-                    title: "Confirmation link has been sent to your mail."
-                });
-            } else {
-                successToast({
-                    title: "You are logged in."
-                });
-            }
-        }
-    }, [loginDetails])
-
 
     return (
         <Form

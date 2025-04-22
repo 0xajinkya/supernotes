@@ -34,8 +34,6 @@ export async function POST(request: NextRequest) {
         }
     } = res;
 
-    console.log(res);
-
     if (res.error?.code === "email_not_confirmed") {
         await supabase.auth.resend({
             email,

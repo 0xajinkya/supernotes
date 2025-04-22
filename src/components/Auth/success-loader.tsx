@@ -25,7 +25,7 @@ export const SuccessLoader = () => {
 
     useEffect(() => {
         if (sessionDetails) {
-            console.log(sessionDetails);
+            //Do something
         }
     }, [sessionDetails]);
 
