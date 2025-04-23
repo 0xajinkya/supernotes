@@ -104,7 +104,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         >
           {data.navMain.map((item) => (
             <SidebarGroup key={item.title}>
-              <CreateNoteModal floating={false} />
+              <CreateNoteModal 
+                floating={false} 
+              />
               <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <ScrollArea

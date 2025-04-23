@@ -70,7 +70,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
             status: false,
             errors: [
                 {
-                    code: 'NOTE_UPDATE_FAILED',
+                    code: 'SAME_CONTENT',
                     message: 'Failed to update your note.'
                 }
             ]
