@@ -13,7 +13,8 @@ export function RichTextEditor({ value, onChange }: { value: string, onChange: (
         },
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl w-[100%] md:w-[100%] break-words focus:outline-none min-h-[250px] max-h-[250px] overflow-scroll overflow-x-hidden'
+                // class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl  pr-[12px] break-words focus:outline-none'
+                class: "prose prose-sm h-[200px] min-h-[200px] max-h-[200px] overflow-y-scroll outline-none focus:outline-none"
             }
         }
     });
@@ -25,9 +26,17 @@ export function RichTextEditor({ value, onChange }: { value: string, onChange: (
     }, [value, editor]);
 
     return (
-        <div className="border rounded-md p-2 flex">
+        <div className="border rounded-md p-2">
             <EditorContent
                 editor={editor}
+                style={{
+                    flexGrow: 1,
+                    height: "200px",
+                    minHeight: "200px",
+                    maxHeight: "200px",
+                    border: 1,
+                    borderColor: "red",
+                }}
             />
         </div>
     );

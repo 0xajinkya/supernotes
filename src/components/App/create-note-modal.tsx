@@ -174,14 +174,19 @@ export function CreateNoteModal({
                   name="content"
                   render={({ field }) => (
                     <FormItem
-                      className="w-[100%] col-span-1"
+                      className="col-span-1 h-[250px] flex flex-col"
                     >
-                      <FormLabel>Content</FormLabel>
-                      <FormControl>
+                      <FormLabel
+                      >Content</FormLabel>
+
+                      <FormControl
+                        className="w-full"
+                      >
                         <RichTextEditor
                           value={field.value}
                           onChange={field.onChange}
                         />
+
                       </FormControl>
                       <FormMessage />
                     </FormItem>
