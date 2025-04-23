@@ -38,8 +38,6 @@ export function CreateNoteModal({
   const currentNote = useAppSelector((st) => st.notes.currentNote);
   const router = useRouter();
 
-  console.log(currentNote);
-
   const {
     mutate,
     isPending: isUpdatePending

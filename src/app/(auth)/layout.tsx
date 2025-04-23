@@ -61,7 +61,7 @@ export default async function AuthLayout({
                             color="white"
                         />
                         <h4 className="scroll-m-20 text-2xl font-semibold tracking-tight text-white">
-                            Superlist
+                            SuperNotes
                         </h4>
                     </div>
                     <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight text-white">

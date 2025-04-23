@@ -57,9 +57,9 @@ interface Navbar1Props {
 export const Navbar = ({
     session,
     logo = {
-        url: "https://www.superlist.0xajinkya.in",
-        alt: "Superlist",
-        title: "Superlist",
+        url: "https://www.supernotes.0xajinkya.in",
+        alt: "SuperNotes",
+        title: "SuperNotes",
     },
     menu = [
         { title: "Home", url: "#" },

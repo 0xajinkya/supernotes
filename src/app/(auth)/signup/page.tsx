@@ -79,7 +79,7 @@ export default function SignupPage() {
                     <p
                         className='text-sm text-gray-500'
                     >
-                        By creating an account you agress to the <Link href={"/terms"} className='font-semibold underline'>terms and conditions</Link>. We&apos;ll ocassionaly send you important updates about Superlist.
+                        By creating an account you agress to the <Link href={"/terms"} className='font-semibold underline'>terms and conditions</Link>. We&apos;ll ocassionaly send you important updates about SuperNotes.
                     </p>
 
                     <p

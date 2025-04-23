@@ -39,7 +39,7 @@ export default async function RootLayout({
           <StoreProvider>
             <ReactQueryProvider>
               <Layout
-                title="SuperList"
+                title="SuperNotes"
               >
                 {children}
                 <Toaster />

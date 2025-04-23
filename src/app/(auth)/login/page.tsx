@@ -78,7 +78,7 @@ export default function LoginPage() {
                     <p
                         className='text-sm text-gray-500'
                     >
-                        By logging in you agree to the <Link href={"/terms"} className='font-semibold underline'>terms and conditions</Link>. We&apos;ll ocassionaly send you important updates about Superlist.
+                        By logging in you agree to the <Link href={"/terms"} className='font-semibold underline'>terms and conditions</Link>. We&apos;ll ocassionaly send you important updates about SuperNotes.
                     </p>
 
                     <p

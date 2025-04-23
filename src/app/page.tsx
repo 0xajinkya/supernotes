@@ -14,7 +14,7 @@ export default async function HomePage() {
       <Image
         src={"/home/hero.jpg"}
         fill
-        alt='Superlist'
+        alt='Supernotes'
         priority
         className='z-[-1] object-cover'
       />
