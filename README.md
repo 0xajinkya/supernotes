@@ -222,3 +222,6 @@ pnpx prisma migrate && pnpx prisma generate && pnpm run build
 ```
 
 ---
+
+# Demo
+[SuperNotes Walkthrough](https://www.loom.com/share/dd03f7a8e2b8475d868e2bff5c860567?sid=9e31f49a-e39a-4de1-a594-ffa3a88dbff4)
