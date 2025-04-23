@@ -24,7 +24,7 @@ export default function AppPage() {
                 <p className="text-2xl md:text-4xl font-semibold text-center">
                     {greet}, <span className="text-[#F56565] font-extrabold capitalize">{user?.firstName}</span><br />What brought you here?
                 </p>
-                <CreateNoteModal 
+                <CreateNoteModal
                     button={
                         <Button className="bg-[#F56565] p-[25px] md:p-[30px] text-xl md:text-2xl rounded-full hover:bg-[#F56565] cursor-pointer" >
                             Create a note

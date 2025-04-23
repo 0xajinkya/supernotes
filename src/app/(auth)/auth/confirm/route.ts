@@ -22,10 +22,9 @@ export async function GET(request: NextRequest) {
       depth: Number.POSITIVE_INFINITY
     })
     if (!error) {
-      redirect("/auth/success")
+      redirect("/app?auth=true")
     }
   }
 
-  // redirect the user to an error page with some instructions
   redirect('/error')
 };

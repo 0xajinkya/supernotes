@@ -114,7 +114,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {notes.map((item) => (
                       <SidebarMenuItem key={item.slug}>
                         <SidebarMenuButton asChild isActive={currentNote?.slug === item.slug}>
-                          <Link href={`/list/${item.slug}`} className="font-semibold" onClick={() => dispatch(setCurrentNote(null))}>{item.title}</Link>
+                          <Link
+                            href={`/list/${item.slug}`}
+                            onClick={() => dispatch(setCurrentNote(null))}
+                            title={item.title} // Optional: shows full title on hover
+                          >
+                            <p
+                              className="font-semibold truncate text-ellipsis w-[55 vw] md:w-[10vw]"
+                            >
+                              {item.title}
+                            </p>
+                          </Link>
+
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ))}

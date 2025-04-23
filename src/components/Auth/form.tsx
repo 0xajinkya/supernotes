@@ -11,9 +11,10 @@ import { ILoginArgs, ISignUpArgs } from "@/interfaces/auth";
 import { logIn, signUp } from "@/api/auth";
 import { useEffect } from "react";
 import { successToast } from "../toasts";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
-
+    const router = useRouter();
     const {
         mutate,
     } = useMutation({
@@ -27,6 +28,7 @@ export const LoginForm = () => {
                 successToast({
                     title: "You are logged in."
                 });
+                router.replace("/app");
             }
         }
     })

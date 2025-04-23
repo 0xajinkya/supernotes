@@ -13,7 +13,7 @@ export function RichTextEditor({ value, onChange }: { value: string, onChange: (
         },
         editorProps: {
             attributes: {
-                class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl w-[68.5vw] md:w-[28vw] break-words focus:outline-none min-h-[250px]'
+                class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl w-[100%] md:w-[100%] break-words focus:outline-none min-h-[250px] max-h-[250px] overflow-scroll overflow-x-hidden'
             }
         }
     });

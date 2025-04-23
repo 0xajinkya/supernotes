@@ -12,7 +12,7 @@ export default async function SingleListPage({
     const {
         slug
     } = await params;
-    if(!slug) {
+    if (!slug) {
         redirect("/error");
     }
     return (

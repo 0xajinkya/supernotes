@@ -101,7 +101,7 @@ export function CreateNoteModal({
           content: data.content,
         }
       });
-    }
+    };
   };
 
   React.useEffect(() => {
@@ -136,7 +136,7 @@ export function CreateNoteModal({
           </Button>
         }
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-[600px]">
+      <DialogContent className="sm:max-w-[425px] md:max-w-[600px] max-h-[80vh]">
         <Form
           {...form}
 
