@@ -5,7 +5,13 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import { GoogleOAuthButton } from '@/components/Auth/google-oauth-button';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+    title: "SuperNotes | Log In",
+    description: "SuperNotes is a note taking app that allows you to create, edit, and organize your notes in a simple and intuitive way."
+  };
+  
 
 export default function LoginPage() {
     return (
