@@ -151,7 +151,7 @@ export const SignupForm = () => {
         >
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <div
-                    className="flex gap-[20px] items-center w-auto"
+                    className="flex flex-col md:flex-row gap-8 md:gap-[20px] items-stretch md:items-center w-auto"
                 >
                     <FormField
                         control={form.control}

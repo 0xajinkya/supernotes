@@ -10,12 +10,12 @@ import { GoogleOAuthButton } from '@/components/Auth/google-oauth-button';
 export default function LoginPage() {
     return (
 
-        <div className="flex-[1.8] flex items-center justify-center px-[40px]">
+        <div className="flex-1 md:flex-[1.8] flex items-center justify-center px-[18px] md:px-[40px]">
             <div
-                className="w-[60%] rounded-md bg-white/10 backdrop-blur-md shadow-lg"
+                className="w-full md:w-[60%] rounded-md bg-white/10 backdrop-blur-md shadow-lg"
             >
                 <div
-                    className='p-[40px] pb-[10px] flex flex-col gap-[12px]'
+                    className='p-[18px] md:p-[40px] pb-[10px] flex flex-col gap-[12px]'
                 >
                     <p
                         className='text-center text-sm'
@@ -23,14 +23,15 @@ export default function LoginPage() {
                         Login With:
                     </p>
                     <div
-                        className='flex gap-[12px] items-center'
+                        className='flex flex-col md:flex-row gap-[12px] items-center'
                     >
-                        <GoogleOAuthButton 
+                        <GoogleOAuthButton
                             type="login"
+                            cls='w-full'
                         />
 
                         <Button
-                            className="flex-1 bg-transparent text-sm text-black font-semibold border border-gray-300 hover:bg-transparent hover:text-[#1877F2] hover:border-[#1877F2]"
+                            className="flex-1 w-full md:w-auto bg-transparent text-sm text-black font-semibold border border-gray-300 hover:bg-transparent hover:text-[#1877F2] hover:border-[#1877F2]"
                         >
                             <Image
                                 src={"/icons/facebook.svg"}
@@ -42,7 +43,7 @@ export default function LoginPage() {
                         </Button>
 
                         <Button
-                            className="flex-1 bg-transparent text-sm text-black font-semibold border border-gray-300 hover:bg-transparent hover:text-[#0A66C2] hover:border-[#0A66C2]"
+                            className="flex-1 w-full md:w-auto  bg-transparent text-sm text-black font-semibold border border-gray-300 hover:bg-transparent hover:text-[#0A66C2] hover:border-[#0A66C2]"
                         >
                             <Image
                                 src={"/icons/linkedin.svg"}
@@ -68,11 +69,11 @@ export default function LoginPage() {
                         className='flex-1'
                     />
                 </div>
-                <div className="p-[40px] pt-[20px] pb-[20px]">
+                <div className="p-[18px] md:p-[40px] pt-[20px] pb-[20px]">
                     <LoginForm />
                 </div>
                 <div
-                    className='px-[40px] pb-[30px] flex flex-col gap-[12px]'
+                    className='px-[18px] md:px-[40px] pb-[30px] flex flex-col gap-[12px]'
                 >
                     <p
                         className='text-sm text-gray-500'
@@ -87,7 +88,6 @@ export default function LoginPage() {
                     </p>
                 </div>
             </div>
-
         </div>
     );
 }

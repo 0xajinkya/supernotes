@@ -1,6 +1,5 @@
-import { getServerSession } from "@/hooks/get-server-session";
-import { db } from "@/lib/db";
-import { createClient } from "@/utils/supabase/server";
+import { CheckSession } from "@/middlewares/check-session";
+import { NoteService } from "@/services/note";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -9,45 +8,9 @@ export async function GET(request: NextRequest) {
         searchParams
     } = new URL(request.url);
 
-    const supabase = await createClient();
+    const sessionUser = await CheckSession();
 
-    const session = await getServerSession();
-    if (!session) {
-        return new NextResponse(JSON.stringify({
-            status: false,
-            errors: [
-                {
-                    code: 'UNAUTHORIZED',
-                    message: 'Unauthorized'
-                }
-            ]
-        }), { status: 403 });
-    };
-
-    const {
-        data: {
-            user
-        }
-    } = await supabase.auth.getUser();
-    if (!user) {
-        return new NextResponse(JSON.stringify({
-            status: false,
-            errors: [
-                {
-                    code: 'UNAUTHORIZED',
-                    message: 'Unauthorized'
-                }
-            ]
-        }), { status: 403 });
-    };
-
-    const dbUser = await db.user.findFirst({
-        where: {
-            email: user?.email
-        }
-    });
-
-    if (!dbUser) {
+    if (!sessionUser) {
         return new NextResponse(JSON.stringify({
             status: false,
             errors: [
@@ -71,14 +34,16 @@ export async function GET(request: NextRequest) {
             ]
         }), { status: 404 });
     }
-    const note = await db.note.findFirst({
-        where: {
-            slug: slug
-        },
-        include: {
-            user: true
-        }
-    });
+    // const note = await db.note.findFirst({
+    //     where: {
+    //         slug: slug
+    //     },
+    //     include: {
+    //         user: true
+    //     }
+    // });
+
+    const note = await NoteService.GetNote(slug);
 
     return NextResponse.json({
         status: true,

@@ -1,8 +1,6 @@
-'use server'
-
 import { db } from "@/lib/db"
 
-export const createUser = async ({
+const CreateUser = async ({
     email,
     firstName,
     lastName
@@ -21,7 +19,7 @@ export const createUser = async ({
     return user;
 };
 
-export const getUser = async (identifier: string) => {
+const GetUser = async (identifier: string) => {
     const user = await db.user.findFirst({
         where: {
             OR: [
@@ -33,7 +31,7 @@ export const getUser = async (identifier: string) => {
     return user;
 };
 
-export const updateUser = async ({
+const UpdateUser = async ({
     id,
     email,
     firstName,
@@ -56,3 +54,9 @@ export const updateUser = async ({
     });
     return user;
 };
+
+export const UserService = {
+    CreateUser,
+    GetUser,
+    UpdateUser
+}

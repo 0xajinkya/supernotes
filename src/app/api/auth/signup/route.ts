@@ -1,4 +1,4 @@
-import { createUser, getUser } from "@/services/user";
+import { UserService } from "@/services/user";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
         password
     } = await request.json();
 
-    const existingUser = await getUser(email);
+    const existingUser = await UserService.GetUser(email);
     if (existingUser) {
         return new NextResponse(JSON.stringify({
             status: false,
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         }), { status: 400 });
     };
 
-    const user = await createUser({
+    const user = await UserService.CreateUser({
         email,
         firstName,
         lastName

@@ -48,7 +48,7 @@ export default async function AuthLayout({
 
     return (
         <div className="min-h-screen w-full flex">
-            <div className="flex-1 flex flex-col px-[20px] px-[80px] py-[20px] pt-[30px] gap-[70px] bg-[#F56565]">
+            <div className="hidden md:flex flex-1 flex-col px-[20px] px-[80px] py-[20px] pt-[30px] gap-[70px] bg-[#F56565]">
                 <div
                     className='flex flex-col items-start gap-[20px]'
                 >

@@ -34,7 +34,6 @@ export const ReactQueryProvider = ({ children }: { children: React.ReactNode }) 
     // logger.info(
     //   `${err?.response?.status || ''} ${err?.code || 'NO_ERR_CODE'} API Error`
     // );
-    console.log(err);
   };
 
   queryClient.setDefaultOptions({

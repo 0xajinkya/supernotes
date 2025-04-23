@@ -5,7 +5,7 @@ export interface INoteState {
     fullNotes: Note[];
     sideNotes: Pick<Note, "title" | "slug">[];
     currentNote: Note | null;
-    
+
 };
 
 const initialState: INoteState = {
@@ -44,6 +44,28 @@ export const {
         },
         addNotes: (state, action) => {
             state.fullNotes = [...state.fullNotes, ...action.payload];
+        },
+        updateSingleNote: (state, action: {
+            payload: Note
+        }) => {
+            const data = action.payload;
+            state.sideNotes = state.sideNotes.map((note) => {
+                if (note.slug === state.currentNote!.slug) {
+                    return {
+                        title: action.payload.title,
+                        slug: action.payload.slug
+                    };
+                }
+                return note;
+            });
+            state.fullNotes = state.fullNotes.map((note) => {
+                if (note.id === data.id) {
+                    return {
+                        ...data
+                    };
+                }
+                return note;
+            });
         }
     }
 });
@@ -53,7 +75,8 @@ export const {
     setSideNotes,
     setCurrentNote,
     addSingleNote,
-    removeNote
+    removeNote,
+    updateSingleNote
 } = actions;
 
 export default reducer;

@@ -14,20 +14,14 @@ export const SuccessLoader = () => {
         isSuccess,
         isPending,
         isError,
-        data: sessionDetails
     } = useMutation({
         mutationFn: () => getSession()
     });
 
     useEffect(() => {
         mutate();
-    }, []);
+    }, [mutate]);
 
-    useEffect(() => {
-        if (sessionDetails) {
-            //Do something
-        }
-    }, [sessionDetails]);
 
     return (
         <div

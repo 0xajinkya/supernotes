@@ -1,6 +1,6 @@
 'use client';
 
-import { Bomb, Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Bomb, Menu } from "lucide-react";
 
 import {
     Accordion,
@@ -24,8 +24,8 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { useAppSelector } from "@/store/hooks";
 import { LogoutButton } from "./logout";
+import { Session } from "@supabase/supabase-js";
 
 interface MenuItem {
     title: string;
@@ -55,6 +55,7 @@ interface Navbar1Props {
 }
 
 export const Navbar = ({
+    session,
     logo = {
         url: "https://www.superlist.0xajinkya.in",
         alt: "Superlist",
@@ -62,67 +63,6 @@ export const Navbar = ({
     },
     menu = [
         { title: "Home", url: "#" },
-        {
-            title: "Products",
-            url: "#",
-            items: [
-                {
-                    title: "Blog",
-                    description: "The latest industry news, updates, and info",
-                    icon: <Book className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Company",
-                    description: "Our mission is to innovate and empower the world",
-                    icon: <Trees className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Careers",
-                    description: "Browse job listing and discover our workspace",
-                    icon: <Sunset className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Support",
-                    description:
-                        "Get in touch with our support team or visit our community forums",
-                    icon: <Zap className="size-5 shrink-0" />,
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Resources",
-            url: "#",
-            items: [
-                {
-                    title: "Help Center",
-                    description: "Get all the answers you need right here",
-                    icon: <Zap className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Contact Us",
-                    description: "We are here to help you with any questions you have",
-                    icon: <Sunset className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Status",
-                    description: "Check the current status of our services and APIs",
-                    icon: <Trees className="size-5 shrink-0" />,
-                    url: "#",
-                },
-                {
-                    title: "Terms of Service",
-                    description: "Our terms and conditions for using our services",
-                    icon: <Book className="size-5 shrink-0" />,
-                    url: "#",
-                },
-            ],
-        },
         {
             title: "Pricing",
             url: "#",
@@ -136,16 +76,16 @@ export const Navbar = ({
         login: { title: "Login", url: "/login" },
         signup: { title: "Sign up", url: "/signup" },
     },
-}: Navbar1Props) => {
-
-    const session = useAppSelector((state) => state.session.session);
+}: Navbar1Props & {
+    session: Session | null
+}) => {
 
     return (
         <section className="py-4 sticky top-0 z-50">
             <div className="px-[20px]">
                 {/* Desktop Menu */}
                 <nav className="hidden justify-between lg:flex">
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-6 p-[20px] bg-white rounded-full shadow-md">
                         {/* Logo */}
                         <a href={logo.url} className="flex items-center gap-2">
                             {/* <Image src={logo.src} className="max-h-8" width={80} height={80} alt={logo.alt} /> */}
@@ -167,7 +107,7 @@ export const Navbar = ({
                         </div>
                     </div>
                     {!session ?
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-2 items-center bg-white">
                             <Button asChild variant="outline" size="sm">
                                 <a href={auth.login.url}>{auth.login.title}</a>
                             </Button>
@@ -217,12 +157,20 @@ export const Navbar = ({
                                     </Accordion>
 
                                     <div className="flex flex-col gap-3">
-                                        <Button asChild variant="outline">
-                                            <a href={auth.login.url}>{auth.login.title}</a>
-                                        </Button>
-                                        <Button asChild>
-                                            <a href={auth.signup.url}>{auth.signup.title}</a>
-                                        </Button>
+                                        {session ?
+                                            <div className="flex flex-col gap-2 items-center">
+                                                <Button asChild variant="outline" size="sm" className="w-full">
+                                                    <a href={auth.login.url}>{auth.login.title}</a>
+                                                </Button>
+                                                <Button asChild size="sm" className="bg-[#F56565] hover:bg-[#F56565] w-full">
+                                                    <a href={auth.signup.url}>{auth.signup.title}</a>
+                                                </Button>
+                                            </div>
+                                            :
+                                            <LogoutButton
+                                                cls="w-full"
+                                            />
+                                        }
                                     </div>
                                 </div>
                             </SheetContent>

@@ -14,25 +14,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit, Plus } from "lucide-react";
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Checkbox } from "../ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
-import { ICreateNoteArgs } from "@/interfaces/note";
-import { createNote } from "@/api/note";
+import { ICreateNoteArgs, IUpdateNoteArgs } from "@/interfaces/note";
+import { createNote, updateNote } from "@/api/note";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addSingleNote } from "@/store/slices/notes";
+import { addSingleNote, updateSingleNote } from "@/store/slices/notes";
 import { useRouter } from "next/navigation";
 import { RichTextEditor } from "./rte";
 
 export function CreateNoteModal({
   floating,
+  button
 }: {
   floating?: boolean,
+  button?: React.ReactNode
 }) {
-
+  const closeRef = useRef<HTMLButtonElement>(null);
   const dispatch = useAppDispatch();
   const currentNote = useAppSelector((st) => st.notes.currentNote);
   const router = useRouter();
@@ -40,19 +41,43 @@ export function CreateNoteModal({
   console.log(currentNote);
 
   const {
-    mutate
+    mutate,
+    isPending: isUpdatePending
   } = useMutation({
     mutationFn: ({ data, config }: ICreateNoteArgs) => createNote({ data, config }),
     onSuccess: (data) => {
       dispatch(addSingleNote(data.content.data));
+      form.reset({
+        title: "",
+        content: "",
+      });
+      closeRef.current?.click();
       router.push(`/list/${data.content.data.slug}`);
     }
   });
 
+  const {
+    mutate: updateMutate,
+    isPending
+  } = useMutation({
+    mutationFn: ({ data, config }: IUpdateNoteArgs) => updateNote(currentNote!.slug, {
+      title: data.title,
+      content: data.content
+    }, config),
+    onSuccess: (data) => {
+      dispatch(updateSingleNote(data.content.data));
+      form.reset({
+        title: "",
+        content: "",
+      });
+      closeRef.current?.click();
+      router.replace(`/list/${data.content.data.slug}`);
+    }
+  })
+
   const formSchema = z.object({
     title: z.string().min(5),
-    content: z.string().min(10),
-    generateAiSummay: z.boolean(),
+    content: z.string().min(10)
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,18 +85,25 @@ export function CreateNoteModal({
     defaultValues: {
       title: currentNote ? currentNote.title : "",
       content: currentNote ? currentNote.content : "",
-      generateAiSummay: currentNote ? !!currentNote.aiSummary : false,
     },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutate({
-      data: {
-        title: data.title,
-        content: data.content,
-        generateAiSummay: data.generateAiSummay
-      }
-    });
+    if (currentNote) {
+      updateMutate({
+        data: {
+          title: data.title,
+          content: data.content,
+        }
+      });
+    } else {
+      mutate({
+        data: {
+          title: data.title,
+          content: data.content,
+        }
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -79,7 +111,6 @@ export function CreateNoteModal({
       form.reset({
         title: currentNote.title,
         content: currentNote.content,
-        generateAiSummay: !!currentNote.aiSummary,
       });
     }
   }, [currentNote, form]);
@@ -88,22 +119,24 @@ export function CreateNoteModal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className={floating ? `absolute right-5 bottom-5` : ``}
-        >
-          {!floating ? "Add Note" :
-            currentNote ?
-              <Edit
-                color="#F56565"
+        {button ??
+          <Button
+            variant="outline"
+            className={floating ? `absolute right-5 bottom-5 cursor-pointer` : `cursor-pointer`}
+          >
+            {!floating ? "Add Note" :
+              currentNote ?
+                <Edit
+                  color="#F56565"
 
-              />
-              :
-              <Plus
-                color="#F56565"
-              />
-          }
-        </Button>
+                />
+                :
+                <Plus
+                  color="#F56565"
+                />
+            }
+          </Button>
+        }
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] md:max-w-[600px]">
         <Form
@@ -157,32 +190,21 @@ export function CreateNoteModal({
                   )}
                 />
               </div>
-
-              <div className="grid grid-cols-1 items-center gap-4">
-                <FormField
-                  control={form.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem
-                      className="w-[100%] col-span-1 flex"
-                    >
-                      <FormControl>
-                        <Checkbox
-                          {...field}
-                          onClick={() => form.setValue("generateAiSummay", !form.getValues("generateAiSummay"))}
-                        />
-                      </FormControl>
-                      <FormLabel>Generate AI Summary?</FormLabel>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Create Note</Button>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
+              <Button type="submit" className="cursor-pointer bg-[#F56565] hover:bg-[#F56565]"
+                disabled={isPending || isUpdatePending}
+              >
+                {currentNote ? "Update Note" : "Create Note"}</Button>
+              <DialogClose asChild
+                onClick={() => form.reset({
+                  title: "",
+                  content: ""
+                })}
+              >
+                <Button type="button" variant="secondary" ref={closeRef} className="cursor-pointer border-1 border-[#F56565] text-[#F56565]"
+                  disabled={isPending || isUpdatePending}
+                >
                   Close
                 </Button>
               </DialogClose>

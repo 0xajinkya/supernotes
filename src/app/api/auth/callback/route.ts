@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 // The client you created from the Server-Side Auth instructions
 import { createClient } from '@/utils/supabase/server'
-import { createUser, getUser } from '@/services/user'
+import { UserService } from '@/services/user'
 
 export async function GET(request: Request) {
     const { searchParams, origin } = new URL(request.url)
@@ -13,9 +13,6 @@ export async function GET(request: Request) {
     if (code) {
         const supabase = await createClient()
         const res = await supabase.auth.exchangeCodeForSession(code);
-        console.dir(res, {
-            depth: Number.POSITIVE_INFINITY
-        })
 
         const {
             data: {
@@ -24,13 +21,13 @@ export async function GET(request: Request) {
             },
             error
         } = res;
-        const existingUser = await getUser(user?.email as string);
+        const existingUser = await UserService.GetUser(user?.email as string);
 
 
 
         if (!error) {
             if ((type === "signup" && !existingUser) || !existingUser) {
-                await createUser({
+                await UserService.CreateUser({
                     email: user?.email as string,
                     firstName: user?.user_metadata?.name?.split(" ")[0],
                     lastName: user?.user_metadata?.name?.split(" ")[1]

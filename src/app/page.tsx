@@ -16,14 +16,16 @@ export default async function HomePage() {
         fill
         alt='Superlist'
         priority
-        className='z-[-1]'
+        className='z-[-1] object-cover'
       />
-      <Navbar />
+      <Navbar
+        session={session}
+      />
       <div
         className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-[40px]'
       >
         <p
-          className='text-8xl text-center  tracking-tight'
+          className='text-3xl md:text-8xl text-center  tracking-tight'
         >
           Google Notes, on <br /><span className='text-[#F56565] font-bold'>AI Steroids</span>
         </p>
@@ -35,7 +37,7 @@ export default async function HomePage() {
         } */}
           {!session &&
             <Link
-              className='px-[35px] py-[20px] text-2xl font-bold bg-[#F56565] hover:bg-[#F56565] rounded-full text-white hover:text-white'
+              className='px-[20px] md:px-[35px] py-[10px] md:py-[15px] text-xl md:text-2xl  font-bold bg-[#F56565] hover:bg-[#F56565] rounded-full text-white hover:text-white'
               href={"/signup"}
             >
               Sign Up
@@ -43,7 +45,7 @@ export default async function HomePage() {
           }
           {!session &&
             <Link
-              className='px-[35px] py-[20px] text-2xl font-bold border-[3px] rounded-full border-[#F56565] bg-transparent hover:bg-transparent text-[#F56565]'
+              className='px-[20px] md:px-[35px] py-[10px] md:py-[15px] text-xl md:text-2xl font-bold border-[3px] rounded-full border-[#F56565] bg-transparent hover:bg-transparent text-[#F56565]'
               href={"/login"}
             >
               Log In
@@ -51,7 +53,7 @@ export default async function HomePage() {
           }
           {session &&
             <Link
-              className='px-[35px] py-[20px] text-2xl font-bold bg-[#F56565] hover:bg-[#F56565] rounded-full text-white hover:text-white'
+              className='px-[20px] md:px-[35px] py-[10px] md:py-[15px] text-xl md:text-2xl font-bold bg-[#F56565] hover:bg-[#F56565] rounded-full text-white hover:text-white'
               href={"/app"}
             >
               Go To App

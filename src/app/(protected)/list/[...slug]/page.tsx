@@ -7,7 +7,7 @@ import { ListPage } from "@/components/List/list-page";
 export default async function SingleListPage({
     params
 }: {
-    params: Params
+    params: Promise<Params>
 }) {
     const {
         slug

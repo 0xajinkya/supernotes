@@ -5,7 +5,6 @@ import { useAppDispatch } from "@/store/hooks";
 import { setCurrentNote } from "@/store/slices/notes";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react"
-import { LoadingSpinner } from "../ui/spinner";
 
 export const ListLayout = ({
     children,
@@ -19,7 +18,6 @@ export const ListLayout = ({
 
     const {
         data: currentNote,
-        isLoading
     } = useQuery({
         queryKey: ["note", slug],
         queryFn: () => getNote({ slug })
@@ -37,9 +35,6 @@ export const ListLayout = ({
             className="h-full"
         >
             {children}
-            {isLoading && <LoadingSpinner
-                className="mx-auto"
-            />}
         </div>
     )
 }

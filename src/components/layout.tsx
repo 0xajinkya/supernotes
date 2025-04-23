@@ -31,7 +31,6 @@ export const Layout = ({
 
     useEffect(() => {
         if (isSuccess && sessionData) {
-            console.dir(sessionData);
             dispatch(setSession({
                 ...sessionData.content.data
             }))
