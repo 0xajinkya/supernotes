@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             status: false,
             errors: [
                 {
-                    code: 'USER_SIGNUP_FAILED',
+                    code: 'INTERNAL_ERROR_TRY_GOOGLE_LOGIN',
                     message: 'Failed to create your account.'
                 }
             ]
